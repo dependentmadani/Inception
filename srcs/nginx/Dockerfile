@@ -1,14 +1,14 @@
-FROM debian
+FROM debian:buster
 
 # WORKDIR : /conf
 
+RUN apt-get -y update && apt-get -y install nginx
 # COPY : . /conf
-COPY index.html /data/www/
-COPY test_test.conf /etc/nginx/conf.d/test_test.conf
+# COPY index.html /data/www/
+# COPY test_test.conf /etc/nginx/conf.d/test_test.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# RUN apt-get -y update && apt-get -y install nginx
 
-EXPOSE 80/tcp
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
