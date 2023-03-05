@@ -1,6 +1,9 @@
-# version: '3'
+version: '3'
 services:
   db:
+    build:
+      context: .
+      dockerfile: mariadb/dockerfile
     image: mariadb
     volumes:
       - /data/mysql:/var/lib/mysql
@@ -9,8 +12,13 @@ services:
       MYSQL_DATABASE: mariadb
       MYSQL_USER: mbadaoui
       MYSQL_PASSWORD: 123456
+    ports:
+      - 3306:3306
     restart: always
   nginx:
+    build:
+      context: .
+      dockerfile: nginx/dockerfile
     image: nginx
     volumes: 
       - nginx: /etc/nginx/nginx.conf
