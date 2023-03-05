@@ -3,25 +3,21 @@ services:
   db:
     build:
       context: .
-      dockerfile: mariadb/dockerfile
+      dockerfile: mariadb/Dockerfile
     image: mariadb
     volumes:
       - /data/mysql:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: 12345
-      MYSQL_DATABASE: mariadb
-      MYSQL_USER: mbadaoui
-      MYSQL_PASSWORD: 123456
+    env_file:
+      - .env
     ports:
       - 3306:3306
     restart: always
   nginx:
     build:
       context: .
-      dockerfile: nginx/dockerfile
+      dockerfile: nginx/Dockerfile
     image: nginx
     volumes: 
-      - nginx: /etc/nginx/nginx.conf
-      - /data/html: /var/www/html
+      - /data/html:/var/www/html
     ports: 
       - 443:443
