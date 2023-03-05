@@ -1,0 +1,19 @@
+# version: '3'
+services:
+  db:
+    image: mariadb
+    volumes:
+      - /data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: mariadb
+      MYSQL_USER: mbadaoui
+      MYSQL_PASSWORD: 123456
+    restart: always
+  nginx:
+    image: nginx
+    volumes: 
+      - nginx: /etc/nginx/nginx.conf
+      - /data/html: /var/www/html
+    ports: 
+      - 443:443
