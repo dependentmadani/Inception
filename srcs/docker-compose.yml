@@ -21,3 +21,26 @@ services:
       - /data/html:/var/www/html
     ports: 
       - 443:443
+  wordpress:
+    build:
+      context: .
+      dockerfile: wordpress/Dockerfile
+    depends on:
+      - db
+    image: wordpress
+    env_file:
+      - .env
+    volumes:
+      - data/html:/var/www/html
+    ports:
+      - 9000:9000
+    restart: always
+     
+network:
+  
+
+# volumes:
+#   db_volume:
+#     -/data/mysql
+#   wordpress_volume:
+#     -/data/hmtl
