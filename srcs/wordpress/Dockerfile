@@ -2,10 +2,13 @@ FROM debian:buster
 
 EXPOSE 9000
 
+COPY .env .
+
 RUN apt-get update && \
     apt-get install -y curl &&\
     apt-get install -y tar && \
-    apt-get install -y php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip &&\
+    # apt-get install -y php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip &&\
+    apt-get install -y php libapache2-mod-php php-mysql php-fpm &&\
     apt-get install -y systemd
 
 COPY ./tools/script_runner.sh .
@@ -30,4 +33,6 @@ RUN chmod +x script_runner.sh && ./script_runner.sh
 #sed for define( 'DB_PASSWORD', 'password_here' );
 #sed for define( 'DB_HOST', 'localhost' );
 
-CMD ["bash"]
+# ENTRYPOINT ["./script_runner.sh"]
+
+CMD ["/usr/sbin/php-fpm7.3", "-F"]

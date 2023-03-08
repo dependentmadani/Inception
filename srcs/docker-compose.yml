@@ -1,6 +1,23 @@
 version: '3'
+
 services:
-  db:
+  wordpress:
+    build:
+      context: .
+      dockerfile: wordpress/Dockerfile
+    depends_on:
+      - mariadb
+    image: wordpress
+    env_file:
+      - .env
+    volumes:
+      - /data/html:/var/www/html
+    ports:
+      - 9000:9000
+    networks:
+      - mynetwork
+    restart: always
+  mariadb:
     build:
       context: .
       dockerfile: mariadb/Dockerfile
@@ -11,6 +28,8 @@ services:
       - .env
     ports:
       - 3306:3306
+    networks:
+      - mynetwork
     restart: always
   nginx:
     build:
@@ -21,23 +40,12 @@ services:
       - /data/html:/var/www/html
     ports: 
       - 443:443
-  wordpress:
-    build:
-      context: .
-      dockerfile: wordpress/Dockerfile
-    depends on:
-      - db
-    image: wordpress
-    env_file:
-      - .env
-    volumes:
-      - data/html:/var/www/html
-    ports:
-      - 9000:9000
-    restart: always
+    networks:
+      - mynetwork
      
-network:
-  
+networks:
+  mynetwork:
+    driver: bridge
 
 # volumes:
 #   db_volume:
