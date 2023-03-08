@@ -11,9 +11,7 @@ services:
     env_file:
       - .env
     volumes:
-      - /data/html:/var/www/html
-    ports:
-      - 9000:9000
+      - wordpress_volume:/var/www/html
     networks:
       - mynetwork
     restart: always
@@ -23,11 +21,9 @@ services:
       dockerfile: mariadb/Dockerfile
     image: mariadb
     volumes:
-      - /data/mysql:/var/lib/mysql
+      - db_volume:/var/lib/mysql
     env_file:
       - .env
-    ports:
-      - 3306:3306
     networks:
       - mynetwork
     restart: always
@@ -37,18 +33,29 @@ services:
       dockerfile: nginx/Dockerfile
     image: nginx
     volumes: 
-      - /data/html:/var/www/html
+      - wordpress_volume:/var/www/html
+    depends_on:
+      - wordpress
     ports: 
-      - 443:443
+      - "443:443"
     networks:
       - mynetwork
+     restart: always
      
 networks:
   mynetwork:
     driver: bridge
 
-# volumes:
-#   db_volume:
-#     -/data/mysql
-#   wordpress_volume:
-#     -/data/hmtl
+volumes:
+  db_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mbadaoui/data/mariadb
+  wordpress_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mbadaoui/data/wordpress
