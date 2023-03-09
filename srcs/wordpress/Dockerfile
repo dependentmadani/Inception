@@ -1,7 +1,5 @@
 FROM debian:buster
 
-EXPOSE 9000
-
 COPY .env .
 
 RUN apt-get update && \
@@ -13,7 +11,9 @@ RUN apt-get update && \
 
 COPY ./tools/script_runner.sh .
 
-RUN chmod +x script_runner.sh && ./script_runner.sh
+RUN chmod +x script_runner.sh 
+
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 
 # WORKDIR /tmp 
 
@@ -33,6 +33,8 @@ RUN chmod +x script_runner.sh && ./script_runner.sh
 #sed for define( 'DB_PASSWORD', 'password_here' );
 #sed for define( 'DB_HOST', 'localhost' );
 
-# ENTRYPOINT ["./script_runner.sh"]
+ENTRYPOINT ["./script_runner.sh"]
+
+EXPOSE 9000
 
 CMD ["/usr/sbin/php-fpm7.3", "-F"]
