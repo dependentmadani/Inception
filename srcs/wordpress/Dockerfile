@@ -9,6 +9,8 @@ RUN apt-get update && \
     apt-get install -y php libapache2-mod-php php-mysql php-fpm &&\
     apt-get install -y systemd
 
+EXPOSE 9000
+
 COPY ./tools/script_runner.sh .
 
 RUN chmod +x script_runner.sh 
@@ -34,7 +36,5 @@ COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 #sed for define( 'DB_HOST', 'localhost' );
 
 ENTRYPOINT ["./script_runner.sh"]
-
-EXPOSE 9000
 
 CMD ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
