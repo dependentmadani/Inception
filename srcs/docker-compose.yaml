@@ -1,0 +1,66 @@
+version: '3'
+
+networks:
+  hadnetwork:
+    driver: bridge
+
+volumes:
+  db_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mbadaoui/data/mariadb
+  wordpress_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/mbadaoui/data/wordpress
+
+services:
+  mariadb:
+    build:
+      context: mariadb
+      dockerfile: Dockerfile
+    container_name: mariadb
+    networks:
+      - hadnetwork
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_volume:/var/lib/mysql
+    restart: unless-stopped
+  wordpress:
+    build:
+      context: wordpress
+      dockerfile: Dockerfile
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    networks:
+      - hadnetwork
+    env_file:
+      - .env
+    ports:
+      - "9000:9000"
+    volumes:
+      - wordpress_volume:/var/www/html
+    restart: unless-stopped
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    networks:
+      - hadnetwork
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress_volume:/var/www/html
+    restart: unless-stopped
+
