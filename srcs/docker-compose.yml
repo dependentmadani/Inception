@@ -2,6 +2,7 @@ version: '3'
 
 networks:
   hadnetwork:
+    name: hadnetwork
     driver: bridge
 
 volumes:
@@ -20,47 +21,34 @@ volumes:
 
 services:
   mariadb:
-    build:
-      context: mariadb
-      dockerfile: Dockerfile
     container_name: mariadb
-    networks:
-      - hadnetwork
+    build: ./mariadb
     env_file:
       - .env
-    ports:
-      - "3306:3306"
     volumes:
       - db_volume:/var/lib/mysql
+    networks:
+      - hadnetwork
     restart: unless-stopped
   wordpress:
-    build:
-      context: wordpress
-      dockerfile: Dockerfile
     container_name: wordpress
+    build: ./wordpress
     depends_on:
       - mariadb
-    networks:
-      - hadnetwork
     env_file:
       - .env
-    ports:
-      - "9000:9000"
     volumes:
       - wordpress_volume:/var/www/html
-    restart: unless-stopped
-  nginx:
-    build:
-      context: nginx
-      dockerfile: Dockerfile
-    container_name: nginx
     networks:
       - hadnetwork
+    restart: unless-stopped
+  nginx:
+    container_name: nginx
+    build: ./nginx
     ports:
       - "443:443"
-    depends_on:
-      - wordpress
     volumes:
       - wordpress_volume:/var/www/html
+    networks:
+      - hadnetwork
     restart: unless-stopped
-

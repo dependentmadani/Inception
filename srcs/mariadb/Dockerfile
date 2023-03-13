@@ -5,7 +5,7 @@ RUN apt-get update && \
 
 EXPOSE 3306
 
-COPY ./conf/50-server.conf /etc/mysql/mariadb.conf.d/
+COPY ./conf /etc/mysql/mariadb.conf.d
 COPY ./tools .
 
 # RUN chmod +x ./script_runner.sh && ./script_runner.sh
@@ -13,6 +13,8 @@ COPY ./tools .
 RUN service mysql start && mysql < ./initial_db.sql;
 
 # && rm -f /var/www/initial_db.sql;
+
+# RUN service mysql restart
 
 CMD ["mysqld"]
 #check this:
