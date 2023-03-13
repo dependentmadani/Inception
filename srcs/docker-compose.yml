@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 networks:
   hadnetwork:
@@ -8,12 +8,14 @@ networks:
 volumes:
   db_volume:
     driver: local
+    name: db_volume
     driver_opts:
       type: none
       o: bind
       device: /home/mbadaoui/data/mariadb
   wordpress_volume:
     driver: local
+    name: wordpress_volume
     driver_opts:
       type: none
       o: bind
@@ -30,23 +32,27 @@ services:
     networks:
       - hadnetwork
     restart: unless-stopped
+
   wordpress:
     container_name: wordpress
     build: ./wordpress
-    depends_on:
-      - mariadb
     env_file:
       - .env
+    depends_on:
+      - mariadb
     volumes:
       - wordpress_volume:/var/www/html
     networks:
       - hadnetwork
     restart: unless-stopped
+
   nginx:
     container_name: nginx
     build: ./nginx
     ports:
       - "443:443"
+    depends_on:
+      - wordpress
     volumes:
       - wordpress_volume:/var/www/html
     networks:
