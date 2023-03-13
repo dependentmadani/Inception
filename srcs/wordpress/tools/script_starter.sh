@@ -16,10 +16,11 @@
     rm /var/www/html/wp-config-sample.php
     # echo "Wordpress: creating users..."
     # wp core install --url=mbadaoui.42.fr --title=Wordpress --admin_user=mbadaoui --admin_password=hamid --admin_email=mbadaoui@42.fr --skip-email --allow-root
-    echo --url=${DOMAIN_NAME} --title=${WORDPRESS_TITLE} --admin_user=${WORDPRESS_ADMIN_USER} --admin_password=${WORDPRESS_ADMIN_PASSWORD} --admin_email=${WORDPRESS_ADMIN_EMAIL}
-    wp core install --url=mbadaoui.42.fr --title=local --admin_user=mbadaoui --admin_password=hamid --admin_email=hamida@example.com --skip-email --allow-root
+    # echo --url=${DOMAIN_NAME} --title=${WORDPRESS_TITLE} --admin_user=${WORDPRESS_ADMIN_USER} --admin_password=${WORDPRESS_ADMIN_PASSWORD} --admin_email=${WORDPRESS_ADMIN_EMAIL}
+    wp core install --url=${DOMAIN_NAME} --title=${WORDPRESS_TITLE} --admin_user=${WORDPRESS_ADMIN_USER} --admin_password=${WORDPRESS_ADMIN_PASSWORD} --admin_email=${WORDPRESS_ADMIN_EMAIL} --skip-email --allow-root
     wp user create --allow-root ${WORDPRESS_USER} ${WORDPRESS_EMAIL} --user_pass=${WORDPRESS_PASSWORD};
     echo "Wordpress: set up!"
 
+/usr/sbin/php-fpm7.3 -F
 
 exec "$@"
