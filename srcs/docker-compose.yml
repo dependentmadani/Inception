@@ -24,7 +24,13 @@ volumes:
 services:
   mariadb:
     container_name: mariadb
-    build: ./mariadb
+    build: 
+      context: ./mariadb
+      args:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_DATABASSE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     env_file:
       - .env
     volumes:
@@ -38,6 +44,15 @@ services:
     build: ./wordpress
     env_file:
       - .env
+    environment:
+      WORDPRESS_TITLE: ${WORDPRESS_TITLE}
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_ADMIN_USER: ${WORDPRESS_ADMIN_USER}
+      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
+      WORDPRESS_USER: ${WORDPRESS_USER}
+      WORDPRESS_PASSWORD: ${WORDPRESS_PASSWORD}
+      WORDPRESS_EMAIL: ${WORDPRESS_EMAIL}
     depends_on:
       - mariadb
     volumes:
