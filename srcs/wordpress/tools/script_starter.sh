@@ -18,6 +18,6 @@ wp core install --url=${DOMAIN_NAME} --title=${WORDPRESS_TITLE} --admin_user=${W
 wp user create --allow-root ${WORDPRESS_USER} ${WORDPRESS_EMAIL} --user_pass=${WORDPRESS_PASSWORD};
 echo "Wordpress: set up!"
 
-/usr/sbin/php-fpm7.3 -F
+# /usr/sbin/php-fpm7.3 -F
 
 exec "$@"

@@ -10,4 +10,6 @@ COPY ./tools /var/www/
 
 RUN chmod +x /var/www/script_starter.sh
 
-CMD /var/www/script_starter.sh
+RUN /var/www/script_starter.sh
+
+CMD ["php-fpm7.3", "-F"]
