@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS '${MYSQL_DATABASE}';
-CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-GRANT ALL privileges ON '${MYSQL_DATABASE}'.* TO '${MYSQL_USER}'@'%';
+CREATE DATABASE IF NOT EXISTS database_here;
+CREATE USER IF NOT EXISTS 'user_here'@'%' IDENTIFIED BY 'password_user';
+GRANT ALL privileges ON database_here.* TO 'user_here'@'%';
 FLUSH PRIVILEGES;
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'password_root';

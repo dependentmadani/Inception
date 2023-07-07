@@ -8,8 +8,11 @@ EXPOSE 3306
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d
 COPY ./tools /var/www
 
+ARG MYSQL_ROOT_PASSWORD
+ARG MYSQL_DATABASE
+ARG MYSQL_USER
+ARG MYSQL_PASSWORD
+
 RUN bash /var/www/script_runner.sh
 
 CMD ["mysqld"]
-#check this:
-#https://peppe8o.com/create-a-custom-mariadb-container-with-raspberry-pi-and-docker/

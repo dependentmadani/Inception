@@ -28,7 +28,7 @@ services:
       context: ./mariadb
       args:
         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-        MYSQL_DATABASSE: ${MYSQL_DATABASE}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
         MYSQL_USER: ${MYSQL_USER}
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     env_file:
@@ -41,6 +41,8 @@ services:
 
   wordpress:
     container_name: wordpress
+    depends_on:
+      - mariadb
     build: 
       context: ./wordpress
       args:
@@ -54,8 +56,6 @@ services:
         WORDPRESS_EMAIL: ${WORDPRESS_EMAIL}
     env_file:
       - .env
-    depends_on:
-      - mariadb
     volumes:
       - wordpress_volume:/var/www/html
     networks:
@@ -64,11 +64,11 @@ services:
 
   nginx:
     container_name: nginx
+    depends_on:
+      - wordpress
     build: ./nginx
     ports:
       - "443:443"
-    depends_on:
-      - wordpress
     volumes:
       - wordpress_volume:/var/www/html
     networks:
