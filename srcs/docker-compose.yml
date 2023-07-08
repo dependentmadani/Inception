@@ -25,7 +25,7 @@ services:
   mariadb:
     container_name: mariadb
     build: 
-      context: ./mariadb
+      context: ./requirements/mariadb
       args:
         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -44,7 +44,7 @@ services:
     depends_on:
       - mariadb
     build: 
-      context: ./wordpress
+      context: ./requirements/wordpress
       args:
         WORDPRESS_TITLE: ${WORDPRESS_TITLE}
         WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
@@ -66,7 +66,7 @@ services:
     container_name: nginx
     depends_on:
       - wordpress
-    build: ./nginx
+    build: ./requirements/nginx
     ports:
       - "443:443"
     volumes:
