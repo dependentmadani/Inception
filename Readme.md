@@ -143,12 +143,11 @@ Nginx conf documents will be used to config our server and the right proxy conne
 1. I added to my /var/www/ directory an index html file
 2. I configured the default file in etc/nginx/site-enabled/default
 3. I added a server bracket with a location to var/www/ in the doc. Save it and reload nginx with 'nginx -s reload'.
-4. Because the port host I put when I built was 7000. Go to a web page and put: http://localhost:7000/. It works!!!!
-![nginxLocalImage](images/nginxLocalImages.png)
+4. Because the port host I put when I built was 7000. Go to a web page and put: http://localhost:7000/.
 
-## How to change your localhost by vbachele.42.fr
+## How to change your localhost by mbadaoui.42.fr
 1. Go to the file /etc/hosts
-2. Add the following line : "127.0.0.1 vbachele.42.fr"
+2. Add the following line : "127.0.0.1 mbadaoui.42.fr"
 
 ## Fastcgi (or how to process PHP with nginx)
 ### Useful links
