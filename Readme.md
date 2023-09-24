@@ -19,11 +19,6 @@ You will be lost and you will not understand properly how it works. Do it step b
 
 You want to try if each container works in general? No worries, you will be able to do it by importing images for wordpress and mariaDB from the hub. (if you read this for the first time, I invite you to begin to read this beautiful READ.ME and put a star on it! It helps!)
 
-- The 2 github which helped me a lot for the project : [llescure](https://github.com/llescure/42_Inception) and [malatini](https://github.com/42cursus/inception)
-- This github which helped me for the bonus [twagger](https://github.com/twagger/inception)  
-
-If you have questions: please contact me, I will be glad to give you an answer ! my discord username: vbachele#7949
-
 # SUMMARY
 
 ### 1. [DEFINITIONS](https://github.com/vbachele/Inception/blob/main/README.md#definitions)
@@ -249,7 +244,6 @@ mysql -uroot -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /usr/local/bin/wordpress.s
 3. **Create your file.sql**
 	- 2 options :
 		1. You create the database, the user and you give all privileges to the user
-			as [malatini did](https://github.com/42cursus/inception/blob/validated/srcs/requirements/mariadb/config/create_db.sql)
 		2. You export your own wordpress.sql as I did (and Lea did !!!!)
 			- Step 1: Create your admin user on wordpress:
 				You might don't know what it is, no prob! It means you will export your admin user from your database in order to put it in your .sql file.
