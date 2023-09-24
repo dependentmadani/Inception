@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# sleep 10
 chown -R www-data:www-data /var/www/*;
 chown -R 755 /var/www/*;
 mkdir -p /run/php/;
