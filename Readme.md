@@ -255,7 +255,6 @@ mysql -uroot -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /usr/local/bin/wordpress.s
 				- Your .sql is ready now to be imported
 			- Step 3: relaunch your docker-compose
 				- TADA you will be directly in your website by passing the phase of installation
-![Wordpress without installation](images/wordpress_page.png)
 
 ### Commands to check if all is working
 ```c
